@@ -232,9 +232,50 @@ public:
         std::cout << "Result :: " << result << "\n";
     }
 };
+class Day4{
+	public:	
+	bool checkOverlap(int a, int b ,int c, int d){
+		if ( a <= c && b >= d ) return true;
+		if ( c <= a && d >=b ) return true;
+		return false;
+	}
+	bool checkNoOverlap(int a, int b, int c, int d){
+		if (b < c ) return true;
+		if (a > d ) return true;
+		return false;
+	}
+	void returnLimits(string s, int (&a)[2]){
+		size_t pos = s.find('-');
+		a[0]=stoi(s.substr(0,pos));
+		a[1]=stoi(s.substr(pos+1));
+	}
+	void task(){
+		fstream newfile;
+		newfile.open("/home/rochi/work/AdventOfCode/Adventure_of_Code_22/Adventure_of_code22/input_text_day4.txt",ios::in);
+		if(newfile.is_open()){
+			string tp;
+			int result =0;
+			while(getline(newfile,tp)){
+				size_t pos = tp.find(',');
+				string pair1= tp.substr(0,pos);
+				string pair2= tp.substr(pos+1);
+				int num1[2]={0};
+				int num2[2]={0};
+				returnLimits(pair1,num1);
+				returnLimits(pair2,num2);
+				std::cout << num1[0] << "-" << num1[0] << "," << num2[0] << "-" << num2[1] << "\n";
+				bool val= checkNoOverlap(num1[0], num1[1], num2[0], num2[1]);
+				if (!val) result++;
+				std:: cout << val << "\n";
+			}
+			std :: cout << "Result :: " << result  << "\n"; 
+		}
+	}
+};
 int main() {
-    Day3 obj;
-    obj.task2();
-    std::cin.get();
+	Day4 obj;
+	obj.task();
+	std::cout << "Hello World \n";
+    	std::cin.get();
 	return 0;
 }
